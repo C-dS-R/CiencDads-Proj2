@@ -5,6 +5,19 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+
+# %%
+def leitura_csvs(csv_names: dict ,pasta_csvs="dataset"):
+    """Lê os CSVs do dataset Olist 2016-2018
+
+    Retorna um dicionário de DataFrames."""
+    dfs = {}  #dicionario onde serão guardados os dataframes
+    #preenche o dicionario dos DFs, (usando as mesmas chaves)
+    for key_name in csv_names.keys():
+        dfs[key_name] = pd.read_csv(os.path.join(pasta_csvs, csv_names[key_name]))
+    #retorno
+    return dfs
+
 # %%
 #CSVs
 csvs = {
@@ -20,18 +33,5 @@ csvs = {
 }
 
 # %%
-def leitura_csvs(pasta_csvs="dataset"):
-    """Lê os CSVs do dataset Olist 2016-2018
-    
-    Retorna um dicionário de DataFrames."""
-    dfs = {}  #dicionario onde serão guardados os dataframes
-    #preenche o dicionario dos DFs, (usando as mesmas chaves)
-    for key_name in csvs.keys():
-        dfs[key_name] = pd.read_csv(os.path.join(pasta_csvs, csvs[key_name]))
-    #retorno
-    return dfs
-
-
-# %%
-dataframes = leitura_csvs()
+dataframes = leitura_csvs(csvs)
 print(dataframes['orders'].columns)
